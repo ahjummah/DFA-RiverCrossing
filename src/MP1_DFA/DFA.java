@@ -54,9 +54,9 @@ public class DFA {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("File Name: ");
-        String filename = "mp2";//scan.nextLine();
+        String filename = scan.nextLine();
         filename = filename + ".in";
-        DFA dfa = new DFA("mp2.in");
+        DFA dfa = new DFA(filename);
         String outputFile = filename + ".out";
         PrintWriter writer = new PrintWriter(outputFile, "UTF-8");
 
@@ -65,8 +65,6 @@ public class DFA {
             C = commands.get(i);
             String A = "LRCN";
             String B = "";
-            System.out.println("Current: " + C);
-            //       System.out.println("Line: "+i);
             for (int j = 0; j < C.length(); j++) {
                 char tmp = C.charAt(j);
                 switch (tmp) {
