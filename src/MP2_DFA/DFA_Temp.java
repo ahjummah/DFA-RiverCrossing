@@ -16,7 +16,7 @@ import java.util.Scanner;
  *
  * @author Jessa
  */
-public class DFA {
+public class DFA_Temp {
 
     static ArrayList<String> commands;
 
@@ -28,15 +28,15 @@ public class DFA {
 
     private static boolean check(String str) {
         //  if (str.indexOf("N") < 0) {
-        if ((str.indexOf("R") > -1 && str.indexOf("L") > -1) || (str.indexOf("R")) > -1 && str.indexOf("C") > -1) {
-
+        if ((str.contains("R") && str.contains("C") && (!str.contains("N"))) || (str.contains("R") && str.contains("L") && (!str.contains("N")))) {
+            //  System.out.println("GAME OVER");
             return false;
+            //    }
         }
-
         return true;
     }
 
-    DFA(String fileName) throws FileNotFoundException {
+    DFA_Temp(String fileName) throws FileNotFoundException {
         Scanner read = new Scanner(new File(fileName));
         commands = new ArrayList();
         while (read.hasNextLine()) {
@@ -54,17 +54,19 @@ public class DFA {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("File Name: ");
-        String filename = scan.nextLine();
+        String filename = "mp2";//scan.nextLine();
         filename = filename + ".in";
-        DFA dfa = new DFA(filename);
+        DFA_Temp dfa = new DFA_Temp("mp2.in");
         String outputFile = filename + ".out";
         PrintWriter writer = new PrintWriter(outputFile, "UTF-8");
 
         System.out.println(commands);
         for (int i = 0; i < commands.size(); i++) {
             C = commands.get(i);
-            String A = "LRCN";
-            String B = "";
+            String A = "";
+            String B = "NLRC";
+            System.out.println("Current: " + C);
+            //       System.out.println("Line: "+i);
             for (int j = 0; j < C.length(); j++) {
                 char tmp = C.charAt(j);
                 switch (tmp) {
@@ -82,7 +84,7 @@ public class DFA {
                             A = A + "N";
                             flag = check(B);
                         }
-                        // displayStates(A, B);
+                       // displayStates(A, B);
                         break;
                     case 'C':
                         if (A.indexOf("N") > 0) {
@@ -98,7 +100,7 @@ public class DFA {
                             A = A + "N";
                             flag = check(B);
                         }
-                        //   displayStates(A, B);
+                     //   displayStates(A, B);
                         break;
                     case 'L':
                         if (A.indexOf("N") > 0) {
@@ -114,7 +116,7 @@ public class DFA {
                             A = A + "N";
                             flag = check(B);
                         }
-                        //    displayStates(A, B);
+                    //    displayStates(A, B);
                         break;
                     case 'N':
                         if (A.indexOf("N") > 0) {
@@ -125,7 +127,7 @@ public class DFA {
                             A = A + "N";
                         }
 
-                        //   displayStates(A, B);
+                     //   displayStates(A, B);
                         break;
                 }
                 if (flag == false) {
