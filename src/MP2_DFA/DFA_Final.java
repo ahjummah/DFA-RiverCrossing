@@ -35,13 +35,14 @@ public class DFA_Final {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
         String filename = "mp2";//scan.nextLine();
         filename = filename + ".in";
-        DFA_Final tmp = new DFA_Final("mp2.in");
+        DFA_Final tmp = new DFA_Final(filename);
         String outputFile = filename + ".out";
         PrintWriter writer = new PrintWriter(outputFile, "UTF-8");
         boolean flag = true;
         int count = 0;
-
+        System.out.println("Lines: " + tmp.commands.size());
         for (int i = 0; i < tmp.commands.size(); i++) {
+            flag = true;
             tmp.A = new ArrayList(Arrays.asList('L', 'R', 'C', 'N'));
             tmp.B = new ArrayList();
             String cmd = tmp.commands.get(i);
@@ -58,10 +59,8 @@ public class DFA_Final {
                             tmp.B.addAll(Arrays.asList(x, 'N'));
                         } else {
                             flag = false;
-                            break;
                         }
                     }
-                    flag = tmp.check(tmp.A, tmp.B);
                 } else {
                     if (tmp.B.contains('N')) {
                         if (x.equals('N')) {
@@ -73,27 +72,27 @@ public class DFA_Final {
                                 tmp.A.addAll(Arrays.asList(x, 'N'));
                             } else {
                                 flag = false;
-                                break;
+                           
                             }
                         }
-
                     }
-                    flag = tmp.check(tmp.A, tmp.B);
                 }
+                flag = tmp.check(tmp.A, tmp.B);
                 if (flag == false) {
-                    System.out.println("NG");
+                    System.out.println(i + ": NG");
                     writer.println("NG");
                     break;
                 }
             }
             if (tmp.B.containsAll(Arrays.asList('C', 'L', 'R', 'N'))) {
-                System.out.println("OK");
+                System.out.println(i + ": OK");
                 writer.println("OK");
                 count++;
+            } else if (flag == true) {
+                System.out.println(i + ": NG");
+                writer.println("NG");
             }
         }
-
-        System.out.println("OK Count: " + count);
         writer.close();
     }
 
